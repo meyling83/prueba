@@ -1,0 +1,125 @@
+
+<div class="card-body">
+	    
+	<div class="text-danger"> {{ form_errors(form) }} </div>
+	<!-- CI -->
+	<div class="form-group">
+	    <div class="input-group">
+	        <div class="input-group-prepend"> <span class="input-group-text"><i class="fas fa-pen-fancy"></i></span> </div>
+	        {{ form_widget(form.ci) }}
+	    </div>
+	</div>    
+    <!-- Nombre -->
+	<div class="form-group">
+	    <div class="input-group">
+	        <div class="input-group-prepend"> <span class="input-group-text"><i class="fas fa-pen-fancy"></i></span> </div>
+	        {{ form_widget(form.nombre) }}
+	    </div>
+	</div>
+     <!-- Direccion -->
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend"> <span class="input-group-text"><i class="fas fa-pen-fancy"></i></span> </div>
+            {{ form_widget(form.direccion) }}
+        </div>
+    </div>
+	
+    <!-- Edad -->
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend"> <span class="input-group-text"><i class="fas fa-pen-fancy"></i></span> </div> 
+            {{ form_widget(form.edad) }}
+        </div>
+    </div>
+
+    <!-- FechaNacimiento -->
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend"> <span class="input-group-text"><i class="fas fa-pen-fancy"></i></span> </div> 
+            {{ form_widget(form.fechaNacimiento) }}
+        </div>
+    </div>
+
+   
+    
+   <!-- Municipios -->
+	<div class="form-group"> {{ form_widget(form.municipio) }} </div>
+   
+    <!-- Graduado -->
+    <div class="form-group">
+        <div class="icheck-info">
+            {% if estudiante.graduado is defined %}
+                {% if estudiante.graduado == 1 %} <input type="checkbox" name="estudiante[graduado]" checked="checked" id="idGraduado">
+                {% else %} <input type="checkbox" name="estudiante[graduado]" id="idGraduado">
+                {% endif %}
+            {% else %} <input type="checkbox" name="estudiante[graduado]" id="idGraduado">
+            {% endif %}
+            <label for="idGraduado" title="Especifique si el estudiante esta graduado"> Graduado </label>
+        </div>
+    </div>
+
+    <!-- Caso social -->
+    <div class="form-group">
+        <div class="icheck-info">
+            {% if estudiante.casoSocial is defined %}
+                {% if estudiante.casoSocial == 1 %} <input type="checkbox" name="estudiante[casoSocial]" checked="checked" id="idCasoSocial">
+                {% else %} <input type="checkbox" name="estudiante[casoSocial]" id="idCasoSocial">
+                {% endif %}
+            {% else %} <input type="checkbox" name="estudiante[casoSocial]" id="idCasoSocial">
+            {% endif %}
+            <label for="idCasoSocial" title="Especifique si el estudiante es caso social"> Caso social </label>
+        </div>
+    </div>
+
+    <!-- Alto rendimiento -->
+    <div class="form-group">
+        <div class="icheck-info">
+            {% if estudiante.altoRendimiento is defined %}
+                {% if estudiante.altoRendimiento == 1 %} <input type="checkbox" name="estudiante[altoRendimiento]" checked="checked" id="idAltoRendimiento">
+                {% else %} <input type="checkbox" name="estudiante[altoRendimiento]" id="idAltoRendimiento">
+                {% endif %}
+            {% else %} <input type="checkbox" name="estudiante[altoRendimiento]" id="idAltoRendimiento">
+            {% endif %}
+            <label for="idAltoRendimiento" title="Especifique si el estudiante es alto rendimiento"> Alto rendimiento </label>
+        </div>
+    </div>
+     
+    <!-- Lista de asignaturas -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"> <i class="fas fa-edit"></i> Asignaturas </h3>
+        </div>     
+        <!-- /.card-header -->
+        <div class="card-body">
+            <ul class="todo-list" data-widget="todo-list">
+            {% for asignatura in asignaturas %}
+                <li>
+	                <!-- checkbox -->
+				    <div  class="icheck-success d-inline ml-2">
+				         {% if asignatura.checked == false %}
+				             <input type="checkbox" class="class-checkbox-asignatura" value="{{asignatura.id}}" name="{{asignatura.id}}" id="{{asignatura.id}}">
+				         {% else %}
+				             <input type="checkbox" class="class-checkbox-asignatura" value="{{asignatura.id}}" name="{{asignatura.id}}" id="{{asignatura.id}}" checked="checked">
+				         {% endif %}
+				         <label for="{{asignatura.id}}"></label>
+				    </div>
+		            <span>{{asignatura.nombre}}</span>
+                    
+                </li>
+            {% else %}
+                <li>
+			        <span>No se encontraron registros</span>
+			    </li>
+            {% endfor %}
+            </ul>
+	    </div>
+	    <!-- /.card-body -->
+    </div> 
+    
+</div>
+      
+<div class="card-footer">
+    {% if actionNew is defined %} <button type="submit" class="btn btn-info" id="btn-aplicar-l" title="Aplicar"> <span class="fas fa-check"></span> </button> {% endif %}
+	<button type="submit" class="btn btn-success" id="btn-aceptar-l" title="Aceptar"> <span class="fas fa-check-double"></span> </button>
+	<a href="{{path('estudiante_index')}}"> <button type="button" class="btn btn-danger float-right" id="btn-cancelar-l" title="Cancelar"> <span class="fas fa-times"></span> </button> </a>
+</div>
